@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gesture Project Setup Guide</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #cbd5e1;
+            --heading-color: #f8fafc;
+            --accent-color: #38bdf8;
+            --card-bg: #1e293b;
+            --code-bg: #0f172a;
+            --border-color: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: var(--accent-color);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease;
+        }
+
+        h2 {
+            color: var(--heading-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+
+        h3 {
+            color: var(--heading-color);
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem;
+        }
+
+        p, ul, ol {
+            margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .code-block {
+            background-color: var(--code-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            color: #a5b4fc;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+        }
+
+        .inline-code {
+            background-color: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: #a5b4fc;
+            font-family: monospace;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid;
+            background-color: rgba(0,0,0,0.2);
+        }
+
+        .alert-warning {
+            border-color: #f59e0b;
+        }
+        
+        .alert-warning::before {
+            content: "⚠️ ";
+        }
+
+        .alert-info {
+            border-color: #3b82f6;
+        }
+        
+        .alert-info::before {
+            content: "ℹ️ ";
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tab {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            color: var(--text-color);
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+        }
+
+        .tab.active {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+        
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .arch-card {
+            background-color: rgba(0,0,0,0.2);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .arch-card h4 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 1rem;
+            }
+            section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Gesture Project Web Server Guide</h1>
+        <p>A complete beginner-friendly guide to running the Sign Language Translation application via the interactive Flask Web UI.</p>
+    </header>
+
+    <main>
+        <section id="architecture">
+            <h2>🧠 Web Architecture & Workflow</h2>
+            <p>This project uses a browser-based frontend that streams frames to a Python Flask backend, allowing for real-time sign language prediction natively in the browser without installing desktop software like Tkinter.</p>
+            
+            <div class="architecture-grid">
+                <div class="arch-card">
+                    <h4>1. Web Camera Capture</h4>
+                    <p>The browser uses <code>navigator.mediaDevices</code> to capture camera frames and renders them to an HTML5 canvas.</p>
+                </div>
+                <div class="arch-card">
+                    <h4>2. REST API Pipeline</h4>
+                    <p>The browser converts the current frame into a Base64 string and POSTs it to the Flask backend's <code>/api/predict</code> endpoint.</p>
+                </div>
+                <div class="arch-card">
+                    <h4>3. Landmark Tracking</h4>
+                    <p>The backend decodes the image, runs MediaPipe to extract 21 hand landmarks, and plots them onto a skeleton canvas.</p>
+                </div>
+                <div class="arch-card">
+                    <h4>4. Deep Learning Prediction</h4>
+                    <p>A custom Keras CNN classifies the skeleton image. The backend then returns the recognized symbol back to the browser in real-time!</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="setup">
+            <h2>⚙️ Step-by-Step Setup</h2>
+            <p>Follow these instructions carefully to set up the Flask Web Server on your machine.</p>
+            
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab('win')">Windows (PowerShell)</div>
+                <div class="tab" onclick="switchTab('mac')">macOS</div>
+                <div class="tab" onclick="switchTab('linux')">Linux</div>
+            </div>
+
+            <div id="win" class="tab-content active">
+                <h3>1. Activate Virtual Environment</h3>
+                <div class="code-block"><code>.\.venv\Scripts\activate</code></div>
+                
+                <h3>2. Install Dependencies</h3>
+                <div class="code-block"><code>pip install -r requirements.txt
+pip install flask</code></div>
+                
+                <h3>3. Run the Flask Server</h3>
+                <div class="code-block"><code>$env:PYTHONPATH="."
+python web\app.py</code></div>
+
+                <h3>4. Open the Web App</h3>
+                <p>Navigate your browser to: <a href="http://127.0.0.1:5000" target="_blank" style="color: var(--accent-color);">http://127.0.0.1:5000</a></p>
+            </div>
+
+            <div id="mac" class="tab-content">
+                <h3>1. Activate Virtual Environment</h3>
+                <div class="code-block"><code>source .venv/bin/activate</code></div>
+                
+                <h3>2. Install Dependencies</h3>
+                <div class="code-block"><code>brew install enchant
+pip install -r requirements.txt
+pip install flask</code></div>
+                
+                <h3>3. Run the Flask Server</h3>
+                <div class="code-block"><code>PYTHONPATH="." python web/app.py</code></div>
+
+                <h3>4. Open the Web App</h3>
+                <p>Navigate your browser to: <a href="http://127.0.0.1:5000" target="_blank" style="color: var(--accent-color);">http://127.0.0.1:5000</a></p>
+            </div>
+
+            <div id="linux" class="tab-content">
+                <h3>1. Activate Virtual Environment</h3>
+                <div class="code-block"><code>source .venv/bin/activate</code></div>
+                
+                <h3>2. Install Dependencies</h3>
+                <div class="code-block"><code>sudo apt-get install python3-enchant libenchant-2-2 espeak
+pip install -r requirements.txt
+pip install flask</code></div>
+                
+                <h3>3. Run the Flask Server</h3>
+                <div class="code-block"><code>PYTHONPATH="." python web/app.py</code></div>
+
+                <h3>4. Open the Web App</h3>
+                <p>Navigate your browser to: <a href="http://127.0.0.1:5000" target="_blank" style="color: var(--accent-color);">http://127.0.0.1:5000</a></p>
+            </div>
+        </section>
+
+        <section id="troubleshooting">
+            <h2>🛠️ Troubleshooting Guide</h2>
+            
+            <div class="alert alert-warning">
+                <strong>Camera Permission Denied (Browser):</strong> <br>
+                If the web page says "Requesting camera permission..." forever or fails, ensure you click "Allow" on the camera prompt in your browser. On Windows, verify that your browser has permission to use the camera in Windows Privacy Settings.
+            </div>
+
+            <div class="alert alert-info">
+                <strong>ImportError: No module named 'asl_predictor'</strong> <br>
+                If the Flask server crashes on startup, it means Python cannot find the root directory. Ensure you set the PYTHONPATH environment variable as shown in the run instructions (e.g., <code>$env:PYTHONPATH="."</code>).
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        function switchTab(platform) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.querySelector(`.tab[onclick="switchTab('${platform}')"]`).classList.add('active');
+            document.getElementById(platform).classList.add('active');
+        }
+    </script>
+</body>
+</html>
