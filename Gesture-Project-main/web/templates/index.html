@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ASL Camera Demo</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="header">
+        <div>
+          <h1>Sign Language (A–Z) Camera</h1>
+          <p class="sub">
+            Allow camera access, show a hand sign, and the model will predict the
+            symbol.
+          </p>
+        </div>
+      </header>
+
+      <section class="grid">
+        <div class="card">
+          <div class="videoWrap">
+            <video id="video" autoplay playsinline muted></video>
+            <canvas id="overlay"></canvas>
+          </div>
+          <div class="row">
+            <button id="startBtn">Start camera</button>
+            <button id="stopBtn" class="secondary" disabled>Stop</button>
+            <div class="spacer"></div>
+            <label class="toggle">
+              <input id="autoPredict" type="checkbox" checked />
+              Auto-predict
+            </label>
+          </div>
+          <div class="row">
+            <label class="sliderLabel">
+              Predict rate
+              <input id="fps" type="range" min="1" max="10" value="5" />
+              <span id="fpsVal">5 fps</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="bigResult">
+            <div class="kicker">Predicted symbol</div>
+            <div id="symbol" class="symbol">—</div>
+            <div id="status" class="status">Camera not started.</div>
+          </div>
+          <div class="tips">
+            <div class="tipTitle">Tips</div>
+            <ul>
+              <li>Keep your hand centered and well-lit.</li>
+              <li>Hold the sign steady for a moment.</li>
+              <li>If it shows blank, move closer to the camera.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <canvas id="capture" class="hidden"></canvas>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
+
