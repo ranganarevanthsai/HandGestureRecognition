@@ -2,6 +2,13 @@
 venv/
 env/
 __pycache__/
+.idea/
+.vscode/
+*.log
+*.tmp
+*.temp
+Thumbs.db
+Desktop.ini
 *.py[cod]
 *$py.class
 .Python
